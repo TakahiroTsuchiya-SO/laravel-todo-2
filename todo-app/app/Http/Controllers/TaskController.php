@@ -18,6 +18,11 @@ class TaskController extends Controller
         }
     }
 
+    /**
+     * @param Folder $folder
+     * @return \Illuminate\View\View
+     */
+
     public function index(Folder $folder)
     {
         $folders = Auth::user()->folders()->get();
@@ -32,14 +37,21 @@ class TaskController extends Controller
     }
 
     /**
-     * GET /folders/{id}/tasks/create
+     * @param Folder $folder
+     * @return \Illuminate\View\View
      */
-    public function showCreateForm(int $id)
+    public function showCreateForm(Folder $folder)
     {
         return view('tasks/create', [
-            'folder_id' => $folder->$id,
+            'folder_id' => $folder->id,
         ]);
     }
+
+    /**
+     * @param Folder $folder
+     * @param CreateTask $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function create(Folder $folder, CreateTask $request)
     {
@@ -54,6 +66,11 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+     * @param Folder $folder
+     * @param Task $task
+     * @return \Illuminate\View\View
+     */
     public function showEditForm(Folder $folder, Task $task)
     {
         $this->checkRelation($folder, $task);
@@ -63,6 +80,12 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+     * @param Folder $folder
+     * @param Task $task
+     * @param EditTask $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function edit(Folder $folder, Task $task, EditTask $request)
     {
         $this->checkRelation($folder, $task);
