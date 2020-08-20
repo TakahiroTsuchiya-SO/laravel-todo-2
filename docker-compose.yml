@@ -6,6 +6,7 @@ services:
         ports:
             - '8000:80'
         volumes:
+            - .:/var/www/html/
             - ./docker/web/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
             - app
@@ -24,7 +25,7 @@ services:
         environment:
             TZ: Asia/Tokyo
             POSTGRES_USER: user
-            POSTGRES_DB: sample
+            POSTGRES_DB: laravel_db
             POSTGRES_PASSWORD: password
             POSTGRES_ROOT_PASSWORD: password
         volumes:
