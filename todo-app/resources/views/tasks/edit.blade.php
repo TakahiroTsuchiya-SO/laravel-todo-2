@@ -46,6 +46,11 @@
                 <input type="text" class="form-control" name="due_date" id="due_date"
                        value="{{ old('due_date') ?? $task->formatted_due_date }}" />
               </div>
+              <div class="form-group">
+                <label for="comment">コメント</label>
+                <input type="text" class="form-control" name="comment" id="comment"
+                       value="{{ old('comment') ?? $task->comment }}" />
+              </div>
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">送信</button>
               </div>
