@@ -40,6 +40,7 @@ class TaskController extends Controller
         $task->title = $request->title;
         $task->status = $request->status;
         $task->due_date = $request->due_date;
+        $task->comment = $request->comment;
         $task->save();
 
         return redirect()->route('tasks.index', [
@@ -95,6 +96,7 @@ class TaskController extends Controller
         $task = new Task();
         $task->title = $request->title;
         $task->due_date = $request->due_date;
+        $task->comment = $request->comment;
 
         $folder->tasks()->save($task);
 
