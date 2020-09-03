@@ -1,21 +1,30 @@
-FROM php:7.2-fpm
+FROM centos:7
+
+RUN yum -y update
+RUN yum install -y php php-fpm
+RUN mkdir -p /run/php-fpm
+
+COPY www.conf /etc/php-fpm.d/www.conf
+RUN useradd nginx
 
 RUN curl -sS https://getcomposer.org/installer | php
-
 RUN mv composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
 
-RUN apt-get update \
-    && apt-get install -y \
+RUN yum -y update \
+    && yum install -y \
     git \
     zip \
     vim
 
-RUN apt-get update \
-    && apt-get install -y libpq-dev \
-    && docker-php-ext-install pdo_mysql pdo_pgsql
+RUN yum -y update \
+    && yum install -y \
+    postgresql-server \
+    docker-php-ext-install \
+    pdo_mysql \
+    pdo_pgsql
 
-WORKDIR /var/www/html
+WORKDIR /var/www/
 
 # add alias
 RUN echo "" >> ~/.bashrc
